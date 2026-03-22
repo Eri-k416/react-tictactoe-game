@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+* {
+    font-family: 'Quicksand', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@theme {
+    @keyframes appear {
+        0% {
+            transform: scale(0%) 
+        }
+        100% {
+            transform: scale(100%)
+        }
+    }
+
+    @keyframes disappear {
+        0% {
+            transform: scale(100%)
+        }
+        100% {
+            transform: scale(0%)
+        }
+    }
+
+    @keyframes notif {
+        0% {
+            transform: translateX(-200%)
+        }
+        10% {
+            transform: translateX(50px)
+        }
+        17% {
+            transform: translate(0)
+        }
+        90% {
+            transform: translateX(0)
+        }
+        100% {
+            transform: translateX(-200%)
+        }
+    }
+
+    --animate-appear: appear 0.2s ease-out 0s 1 normal both;
+    --animate-disappear: disappear 0.2s ease-in 0s 1 normal both;
+    --animate-notif: notif 5s ease-in-out 0s 1 normal both;
+}
