@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import greenCheck from './assets/green-check.png';
 import trash from './assets/trash.png';
 import restore from "./assets/restore.png"
@@ -54,7 +54,15 @@ interface notifFormat {
 }
 
 function useLogicPackage() {
-    const [taskArray, setTaskArray] = useState<taskFormat[]>([]);
+    const [taskArray, setTaskArray] = useState<taskFormat[]>(() => {
+        const taskArrStorage = localStorage.getItem('tasks');
+        return taskArrStorage? JSON.parse(taskArrStorage) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(taskArray));
+    }, [taskArray])
+
     const [taskNotifs, setTaskNotifs] = useState<notifFormat[]>([]);
 
     // notifs
@@ -310,7 +318,7 @@ function NotificationSection({taskNotifs}: {taskNotifs: notifFormat[]}) {
     })
 
     return (
-        <aside id="notifications" className='fixed left-3 bottom-3 flex flex-col w-[20%] gap-3'>
+        <aside id="notifications" className='fixed left-3 bottom-3 flex flex-col h-fit w-fit h-min-7 gap-3'>
             {notifArr}
         </aside>
     );
